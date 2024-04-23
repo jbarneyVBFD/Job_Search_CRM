@@ -4,7 +4,7 @@ First off, thank you for considering contributing to Job Search CRM! It's people
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the Job Search CRM Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to [john.barney.2009@gmail.com].
+This project and everyone participating in it is governed by the Job Search CRM Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to john.barney.2009@gmail.com.
 
 ## What we are looking for
 
@@ -56,6 +56,6 @@ If you're new to GitHub, maybe you'd like to start with an issue labeled as "Goo
 
 ## Questions or need help?
 
-Don't hesitate to contact me at [john.barney.2009@gmail.com] or file an issue if you need more guidance or have any questions.
+Don't hesitate to contact me at john.barney.2009@gmail.com or file an issue if you need more guidance or have any questions.
 
 Thank you for your contributions!

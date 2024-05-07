@@ -112,6 +112,61 @@ def update_application_status(id):
         return jsonify({'id': id, 'new_status': data['status']}), 200
     return jsonify({'error': 'Application not found'}), 404
 
+@app.route('/activities', methods=['POST'])
+@login_required
+def add_activity():
+    data = request.get_json()
+    new_activity = Activity(contact_id=data['contact_id'], type=data['type'], details=data['details'])
+    db.session.add(new_activity)
+    db.session.commit()
+    return jsonify({'id': new_activity.id}), 201
+
+@app.route('/activities/<int:contact_id>', methods=['GET'])
+@login_required
+def get_activities(contact_id):
+    activities = Activity.query.filter_by(contact_id=contact_id).all()
+    return jsonify([{'id': activity.id, 'type': activity.type, 'details': activity.details, 'timestamp': activity.timestamp} for activity in activities])
+
+@app.route('/tasks', methods=['POST'])
+@login_required
+def add_task():
+    data = request.get_json()
+    new_task = Task(details=data['details'], due_date=data['due_date'])
+    db.session.add(new_task)
+    db.session.commit()
+    return jsonify({'id': new_task.id}), 201
+
+@app.route('/tasks', methods=['GET'])
+@login_required
+def get_tasks():
+    tasks = Task.query.all()
+    return jsonify([{'id': task.id, 'details': task.details, 'due_date': task.due_date, 'completed': task.completed} for task in tasks])
+
+@app.route('/tasks/<int:task_id>/complete', methods=['PUT'])
+@login_required
+def complete_task(task_id):
+    task = Task.query.get(task_id)
+    if task:
+        task.completed = True
+        db.session.commit()
+        return jsonify({'id': task_id, 'completed': True}), 200
+    return jsonify({'error': 'Task not found'}), 404
+
+@app.route('/notes', methods=['POST'])
+@login_required
+def add_note():
+    data = request.get_json()
+    new_note = Note(content=data['content'], contact_id=data['contact_id'])
+    db.session.add(new_note)
+    db.session.commit()
+    return jsonify({'id': new_note.id}), 201
+
+@app.route('/notes/<int:contact_id>', methods=['GET'])
+@login_required
+def get_notes(contact_id):
+    notes = Note.query.filter_by(contact_id=contact_id).all()
+    return jsonify([{'id': note.id, 'content': note.content} for note in notes])
+
 # Error handlers
 @app.errorhandler(404)
 def resource_not_found(e):
